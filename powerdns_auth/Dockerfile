@@ -53,7 +53,7 @@ COPY --from=builder /etc/powerdns /etc/powerdns/
 
 RUN set -ex; \
 	mkdir -p /var/run/pdns /var/lib/powerdns /etc/powerdns/pdns.d; \
-	sqlite3 /var/lib/powerdns/pdns.sqlite3 < /usr/local/share/doc/pdns/schema.sqlite3.sql; \
+	sqlite3 /var/lib/powerdns/powerdns.sqlite3 < /usr/local/share/doc/pdns/schema.sqlite3.sql; \
 	printf "include-dir=/etc/powerdns/pdns.d\nsetgid=pdns\nsetuid=pdns\n" > /etc/powerdns/pdns.conf; \
 	cp /etc/powerdns/pdns.conf-dist /etc/powerdns/pdns.d/auth.conf; \
 	chown -R pdns:pdns /var/run/pdns /var/lib/powerdns /etc/powerdns/pdns.d; \
