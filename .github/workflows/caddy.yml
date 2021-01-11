@@ -1,4 +1,4 @@
-name: ci
+name: CI-caddy
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - caddy-*
 
 jobs:
-  main:
+  build-caddy-image:
     runs-on: ubuntu-latest
     steps:
       -
