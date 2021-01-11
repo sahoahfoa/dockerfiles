@@ -34,7 +34,7 @@ jobs:
           push: true
           tags: |
             sahoahfoa/caddy:latest
-            sahoahfoa/cadyy:${GITHUB_REF:24}
+            sahoahfoa/caddy:$(echo ${GITHUB_REF:24})
       -
         name: Update repo description
         uses: peter-evans/dockerhub-description@v2
