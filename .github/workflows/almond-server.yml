@@ -1,12 +1,12 @@
-name: CI-powerdns_auth
+name: CI-almond-server
 
 on:
   push:
     tags:
-      - powerdns_auth-*
+      - almond-server-*
 
 jobs:
-  build-powerdns-auth-image:
+  build-almond-server-image:
     runs-on: ubuntu-latest
     steps:
       -
@@ -16,8 +16,8 @@ jobs:
         name: Prepare
         id: prep
         run: |
-          DOCKER_IMAGE=sahoahfoa/powerdns_auth
-          VERSION=${GITHUB_REF#refs/tags/powerdns_auth-}
+          DOCKER_IMAGE=sahoahfoa/almond-server
+          VERSION=${GITHUB_REF#refs/tags/almond-server-}
           TAGS="${DOCKER_IMAGE}:${VERSION},${DOCKER_IMAGE}:latest"
           echo ::set-output name=version::${VERSION}
           echo ::set-output name=tags::${TAGS}
@@ -39,7 +39,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: powerdns_auth
+          context: almond-server
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
           push: true
           tags: ${{ steps.prep.outputs.tags }}
