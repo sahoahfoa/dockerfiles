@@ -1,9 +1,9 @@
-name: CI-caddy-storage-migrator
+name: CI-caddy_storage_migrator
 
 on:
   push:
     tags:
-      - caddy-storage-migrator-*
+      - caddy_storage_migrator-*
 
 jobs:
   build-caddy-storage-migrator-image:
@@ -16,8 +16,8 @@ jobs:
         name: Prepare
         id: prep
         run: |
-          DOCKER_IMAGE=sahoahfoa/caddy-storage-migrator
-          VERSION=${GITHUB_REF#refs/tags/caddy-storage-migrator-}
+          DOCKER_IMAGE=sahoahfoa/caddy_storage_migrator
+          VERSION=${GITHUB_REF#refs/tags/caddy_storage_migrator-}
           TAGS="${DOCKER_IMAGE}:${VERSION},${DOCKER_IMAGE}:latest"
           echo ::set-output name=version::${VERSION}
           echo ::set-output name=tags::${TAGS}
@@ -39,7 +39,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: caddy
+          context: caddy_storage_migrator
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
           push: true
           tags: ${{ steps.prep.outputs.tags }}
