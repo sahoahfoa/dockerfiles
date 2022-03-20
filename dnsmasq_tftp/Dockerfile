@@ -1,10 +1,9 @@
-ARG ALPINE_VERSION=edge
+ARG ALPINE_VERSION=3.15
 FROM alpine:$ALPINE_VERSION
 
 RUN apk --no-cache add dnsmasq && echo "conf-dir=/etc/dnsmasq.d" >> /etc/dnsmasq.conf
 RUN mkdir /tftp/ && chown dnsmasq:dnsmasq /tftp/
-COPY tftp.conf /etc/dnsmasq.d/
-
+COPY tftp.conf /etc/dnsmasq.d
 USER dnsmasq
 
 EXPOSE 69/udp
