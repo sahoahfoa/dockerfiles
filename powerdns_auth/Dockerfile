@@ -12,7 +12,8 @@ RUN set -ex; \
 	apk add  --no-cache --virtual .build-depends \
 		file gnupg g++ make \
 		boost-dev openssl-dev libsodium-dev lmdb-dev luajit-dev net-snmp-dev protobuf-dev \
-		curl-dev mariadb-dev postgresql-dev sqlite-dev geoip-dev yaml-cpp-dev; \
+		curl-dev mariadb-dev postgresql-dev sqlite-dev geoip-dev yaml-cpp-dev \
+		ldb-dev openldap-dev krb5-dev; \
 	mkdir -v -m 0700 -p /root/.gnupg; \
 	curl -RL -O "https://www.powerdns.com/powerdns-keyblock.asc"; \
 	gpg2 --no-options --verbose --keyid-format 0xlong --keyserver-options auto-key-retrieve=true --import *.asc; \
@@ -23,8 +24,9 @@ RUN set -ex; \
 	rm -f "pdns-${AUTH_VERSION}.tar.bz2"; \
 	cd "pdns-${AUTH_VERSION}"; \
 	./configure --sysconfdir=/etc/powerdns --mandir=/usr/share/man \
-				--with-libsodium --with-sqlite3 --enable-tools --with-lua=luajit --with-protobuf --enable-lua-records --enable-ixfrdist \
-				--with-dynmodules="bind gsqlite3 geoip gmysql gpgsql lmdb lua2 pipe random remote"; \
+				--with-libsodium --with-sqlite3 --enable-tools --with-lua=luajit --with-protobuf \
+				--enable-lua-records --enable-ixfrdist \
+				--with-dynmodules="bind gsqlite3 geoip gmysql gpgsql lmdb lua2 pipe ldap remote"; \
 	make $MAKEFLAGS; \
 	make install-strip; \
 	apk del --purge .build-depends;
@@ -36,7 +38,8 @@ RUN set -ex; \
 	apk --update --no-cache upgrade; \
 	apk add --no-cache ca-certificates curl less mandoc tini libcap sqlite \
 		boost-program_options \
-		openssl libsodium lmdb luajit net-snmp protobuf mariadb-connector-c libpq sqlite-libs geoip yaml-cpp ;
+		openssl libsodium lmdb luajit net-snmp protobuf mariadb-connector-c libpq sqlite-libs geoip yaml-cpp \
+		libldap krb5;
 
 ENV PAGER less
 
