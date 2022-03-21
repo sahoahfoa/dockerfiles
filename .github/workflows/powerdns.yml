@@ -8,6 +8,7 @@ on:
 jobs:
   build-powerdns-auth-image:
     runs-on: self-hosted
+    timeout-minutes: 1440
     steps:
       -
         name: Checkout
